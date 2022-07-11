@@ -7,7 +7,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Testing-WDT',
+    titleTemplate: '%s | Testing-WDT',
+    // title: 'Testing-WDT',
     htmlAttrs: {
       lang: 'en'
     },
@@ -28,6 +29,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/auth.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,16 +46,69 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // https://auth.nuxtjs.org
+    '@nuxtjs/auth-next',
+    // https://www.npmjs.com/package/cookie-universal-nuxt
+    ['cookie-universal-nuxt', { parseJSON: true }],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+    baseURL: 'http://localhost:5000'
+  },
+
+  auth: {
+    localStorage: false,
+    redirect: {
+      login: '/',
+      logout: '/',
+      home: '/dashboard',
+    },
+    strategies: {
+      local: {
+        autoLogout: true,
+        scheme: 'refresh',
+        token: {
+          property: 'token', // property name that the Back-end sends for you as a access token for saving on localStorage and cookie of user browser
+          // global: true,
+          maxAge: false, // 1 day
+          // required: true,
+          // type: 'Bearer',
+        },
+        user: {
+          property: 'user',
+          autoFetch: false,
+        },
+        refreshToken: {
+          property: 'token',
+          data: 'token',
+          maxAge: false,
+        },
+        endpoints: {
+          login: { url: '/api/v1/login', method: 'post' },
+          refresh: { url: '/auth/refresh-token', method: 'post' },
+          logout: { url: '/api/v1/logout', method: 'post' },
+          user: false,
+        },
+      },
+      cookie: {
+        options: {
+          secure: true,
+          // maxAge: 1200000,
+          maxAge: false,
+        },
+      },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  // Middleware
+  router: {
+    middleware: ['auth'],
   }
 }
