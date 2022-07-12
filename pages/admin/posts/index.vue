@@ -21,11 +21,15 @@
       :modal-state="modalState"
       @onchanged="submitData"
     />
+
+    <MiscModal :modal-state="modalDetail" />
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 import FormPost from '@/components/form/FormPost.vue'
+import PostDetail from '@/components/admin/PostDetail.vue'
 
 export default {
   middleware: 'isAuthenticated',
@@ -34,15 +38,16 @@ export default {
       tableConfig: {
         actionButton: {
           edit: {
-            type: 'alert',
+            type: false,
             url: ''
           },
           delete: {
-            type: 'alert',
+            type: false,
             url: ''
           },
           detail: {
-            type: false,
+            id: 'postDetail',
+            type: 'alert',
             url: ''
           }
         },
@@ -72,19 +77,35 @@ export default {
           }
         }
       },
+      modalDetail: {
+        open: false,
+        id: 'postDetail',
+        title: 'Post detail',
+        message: PostDetail,
+        buttons: {
+          right: {
+            show: true,
+            type: 'secondary',
+            text: 'Close'
+          },
+          left: {
+            type: 'success',
+            text: 'Submit'
+          }
+        }
+      },
       headerData: [
         {
-          name: 'Word',
-          variable: 'word'
+          name: 'Title',
+          variable: 'title'
+        },
+        {
+          name: 'Category',
+          variable: 'category'
         },
         {
           name: 'Created Date',
           variable: 'created_at',
-          block: true
-        },
-        {
-          name: 'Updated Date',
-          variable: 'updated_at',
           block: true
         }
       ],
@@ -99,9 +120,44 @@ export default {
       }
     }
   },
+  async fetch () {
+    await this.fetchData()
+  },
+  watch: {
+    async $route (to, from) {
+      await this.fetchData(this.dataPage);
+    }
+  },
   methods: {
-    fetchData (payload = {}) {
+    async fetchData (payload = {}) {
+      const query = this.$route.query
+      const resultSet = await this.$axios.get('/api/v1/post', {
+        params: {
+          page: !query.page ? '' : query.page,
+          per_page: Object.prototype.hasOwnProperty.call(payload, 'perpage') && payload.perpage ? payload.perpage : this.dataPage.perpage,
+          search: Object.prototype.hasOwnProperty.call(payload, 'search') && payload.search ? payload.search : ''
+        }
+      })
 
+      this.dataPage = {
+        ...this.dataPage,
+        perpage: resultSet.data.paginate.perpage,
+        page: resultSet.data.paginate.page,
+        totalPage: resultSet.data.paginate.total_pages,
+        totalData: resultSet.data.paginate.total,
+        search: Object.prototype.hasOwnProperty.call(payload, 'search') && payload.search ? payload.search : ''
+      }
+
+      this.postData = resultSet.data.data.map((res) => {
+        return {
+          id: res.id,
+          title: res.title,
+          slug: res.slug,
+          category: res.category,
+          created_at: moment(res.created_date).format('ddd, DD MMM YYYY'),
+          updated_at: moment(res.last_edited).format('ddd, DD MMM YYYY')
+        }
+      })
     },
     submitData (payload) {
 

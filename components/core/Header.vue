@@ -30,7 +30,7 @@
               </div>
               <ul class="py-1" aria-labelledby="dropdown">
                 <li>
-                  <button @click="logOut()" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</button>
+                  <button @click="logOut()" class="w-full text-left text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</button>
                 </li>
               </ul>
             </div>
