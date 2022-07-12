@@ -19,19 +19,18 @@
             @click="toggleDropdown()"
             class="flex flex-col justify-end items-center cursor-pointer w-12 pb-2">
             <img class="border-2 rounded-full menu-selected h-10 w-10" src="@/assets/icon/core-user.png">
-            <!-- Dropdown menu -->
             <div
               :class="{
                 'hidden': !dropdownStatus
               }"
               class="absolute top-12 right-3 bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4">
               <div class="px-4 py-3">
-                <span class="block text-sm">{{ this.$cookies.get('auth._user').displayname }}</span>
-                <span class="block text-sm font-medium text-gray-900 truncate">{{ this.$cookies.get('auth._user').email }}</span>
+                <span class="block text-sm">{{ user && user.displayname }}</span>
+                <span class="block text-sm font-medium text-gray-900 truncate">{{ user && user.email }}</span>
               </div>
               <ul class="py-1" aria-labelledby="dropdown">
                 <li>
-                  <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
+                  <button @click="logOut()" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</button>
                 </li>
               </ul>
             </div>
@@ -73,12 +72,31 @@ export default {
       dropdownStatus: false
     }
   },
+  computed: {
+    user () {
+      return this.$cookies.get('auth._user')
+    }
+  },
   methods: {
     toggleDropdown () {
       this.dropdownStatus = !this.dropdownStatus;
     },
     toggleSidebar () {
       this.$store.commit('sidebarToggle');
+    },
+    async logOut () {
+      const session = this.$cookies.get('auth')
+
+      if (session) {
+        await this.$auth.logout('local').then((res) => {
+          // remove session cookie
+          this.$cookies.remove('auth')
+          // remove session cookie
+          this.$cookies.remove('auth._user')
+          // redirect to frontpage
+          this.$router.push('/')
+        })
+      }
     }
   }
 }
