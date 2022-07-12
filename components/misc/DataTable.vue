@@ -116,7 +116,7 @@
               </NuxtLink>
               <button
                 v-if="typeof config.createButton === 'object' && config.createButton.type === 'modal'"
-                @click="Object.prototype.hasOwnProperty.call(config.createButton, 'emitFeedback') ? config.createButton.emitFeedback() : toggle()"
+                @click="Object.prototype.hasOwnProperty.call(config.createButton, 'emitFeedback') ? config.createButton.emitFeedback() : toggle(config.createButton.id)"
                 class="
                   focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600
                   mt-4
@@ -500,8 +500,8 @@ export default {
 
       this.openDelete = false;
     },
-    toggle () {
-      this.$store.commit('openModalToggle')
+    toggle (payload) {
+      this.$store.commit('modalToggle', { id: payload })
     },
     changedSelect () {
       this.$emit('onchanged', this.tableProperty);

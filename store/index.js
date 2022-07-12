@@ -5,7 +5,13 @@ export const state = () => ({
   openModal: false,
   modalId: null,
   modalDataRef: null,
-  modalType: 'normal'
+  modalType: 'normal',
+  onPagination: false,
+  deleteAction: {
+    module: null,
+    data: [],
+    status: false
+  }
 })
 
 export const getters = {
@@ -25,6 +31,9 @@ export const getters = {
       type: state.modalType,
       refs: state.modalDataRef
     }
+  },
+  getDeleteData (state) {
+    return state.deleteAction
   }
 }
 
@@ -46,6 +55,15 @@ export const mutations = {
       payload && Object.prototype.hasOwnProperty.call(payload, 'data')
         ? payload.data
         : null
+  },
+  updateDeleteAction (state, payload) {
+    state.deleteAction = payload
+  },
+  onPaginationTrue (state, payload) {
+    state.onPagination = true
+  },
+  onPaginationFalse (state, payload) {
+    state.onPagination = false
   }
 }
 

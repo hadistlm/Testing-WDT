@@ -25,7 +25,7 @@
           rounded-lg
           relative
           mt-20
-          lg:mt-4
+          lg:mt-1/4
         ">
         <div class="flex flex-col items-start w-full">
           <div class="p-5 flex items-start w-full">
@@ -44,7 +44,7 @@
             :class="{
               'rounded-lg': !modalState.buttons.left.show && !modalState.buttons.right.show
             }"
-            class="px-3 py-3 overflow-x-hidden overflow-y-auto w-full max-h-96 bg-secondary shadow-inner"
+            class="px-4 py-3 overflow-x-hidden overflow-y-auto w-full max-h-96"
           >
             <component v-if="typeof modalState.message === 'object'" :is="modalState.message" ref="formdata"></component>
             <p v-if="typeof modalState.message === 'string'">{{ modalState.message }}</p>
@@ -162,8 +162,5 @@ export default {
 <style scoped>
   .text-header{
     color: #3D5A80;
-  }
-  .bg-secondary{
-    background-color: #EFEFEF;
   }
 </style>
