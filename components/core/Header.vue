@@ -43,23 +43,37 @@
           </div>
         </div>
       </div>
-      <div class="md:hidden grid grid-cols-5 gap-3 mt-3 shadow-lg">
-        <a class="flex items-center justify-center" href="#">
+      <div
+        :class="{
+          'hidden': !navbar
+        }"
+        class="md:hidden grid grid-cols-3 gap-3 mt-3 shadow-lg"
+      >
+        <a class="flex flex-col items-center justify-end pb-2" href="#">
           <img src="@/assets/icon/core-menu.svg" class="pb-4">
         </a>
-        <a class="flex items-center justify-center" href="#">
+        <a class="flex flex-col items-center justify-end" href="#">
           <img src="@/assets/icon/core-menu.svg" class="pb-4">
-        </a>
-        <a class="flex items-center justify-center" href="#">
-          <img src="@/assets/icon/core-menu.svg" class="pb-4">
-        </a>
-        <a class="flex items-center justify-center" href="#">
-          <img src="@/assets/icon/core-menu.svg" class="pb-4">
-        </a>
-        <a class="flex flex-col justify-end items-center" href="#">
-          <img src="@/assets/icon/core-user.png" class="pb-2 h-10 w-9">
           <div class="w-10/12 border-t-4 menu-selected rounded"></div>
         </a>
+        <div @click="toggleDropdown()" class="flex flex-col justify-end items-center pb-2">
+          <img class="border-2 rounded-full menu-selected h-10 w-10" src="@/assets/icon/core-user.png">
+          <div
+            :class="{
+              'hidden': !dropdownStatus
+            }"
+            class="absolute top-dropdownmb right-3 bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4">
+            <div class="px-4 py-3">
+              <span class="block text-sm">{{ user && user.displayname }}</span>
+              <span class="block text-sm font-medium text-gray-900 truncate">{{ user && user.email }}</span>
+            </div>
+            <ul class="py-1" aria-labelledby="dropdown">
+              <li>
+                <button @click="logOut()" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
   </header>
@@ -75,6 +89,9 @@ export default {
   computed: {
     user () {
       return this.$cookies.get('auth._user')
+    },
+    navbar () {
+      return this.$store.getters.getSidebarInfo
     }
   },
   methods: {
@@ -111,5 +128,8 @@ export default {
   }
   .input-background{
     background-color: rgb(156, 163, 175, 0.2);
+  }
+  .top-dropdownmb{
+    top: 6.5rem;
   }
 </style>

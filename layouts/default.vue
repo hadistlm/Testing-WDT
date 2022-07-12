@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen">
     <div class="flex-1 flex flex-col overflow-hidden">
-      <div id="header" class="sticky top-0 shadow-lg">
+      <div id="header" class="sticky top-0 shadow-lg z-50">
         <CoreHeader />
       </div>
       <div class="flex h-full">
@@ -10,7 +10,9 @@
           :class="{
             'sidebarHidden' : this.$store.state.sidebarStatus === false,
             'sidebarShow' : this.$store.state.sidebarStatus === true
-          }">
+          }"
+          class="hidden lg:block"
+        >
           <CoreSidebar />
         </div>
         <main class="flex flex-col w-full bg-white overflow-x-hidden overflow-y-auto mb-14 major-background">
@@ -49,10 +51,10 @@ export default {
   }
   .sidebarHidden{
     width: 3.35rem;
-    transition:all .3s ease-out;
+    transition:width .3s ease-out;
   }
   .sidebarShow{
     width: 20%;
-    transition:all .3s ease-in;
+    transition:width .3s ease-in;
   }
 </style>
