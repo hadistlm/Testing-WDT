@@ -15,6 +15,9 @@ export const getters = {
   getUserInfo (state) {
     return state.auth.user
   },
+  getSidebarInfo (state) {
+    return state.sidebarStatus
+  },
   getModalInfo (state) {
     return {
       id: state.modalId,
