@@ -130,32 +130,32 @@ export default {
     openModal () {
       if (this.modalState.id !== this.$store.state.modalId) return false;
       return this.$store.state.openModal
-    },
+    }
   },
   methods: {
-    submitModal(){
+    submitModal () {
       const modalBody = this.$refs.formdata
       const loaded = modalBody.getData()
 
       // check whenever this body need validation
-      if (Object.prototype.hasOwnProperty.call(modalBody, "validateData") && modalBody.validateData().status === 'failed') {
+      if (Object.prototype.hasOwnProperty.call(modalBody, 'validateData') && modalBody.validateData().status === 'failed') {
         return false
       }
 
       this.$emit('onchanged', loaded)
 
-      this.$store.commit('modalToggle', {openModal: false})
+      this.$store.commit('modalToggle', { openModal: false })
 
       modalBody.resetData()
     },
-    closeModal(event) {
-      this.$store.commit('modalToggle', {openModal: false})
+    closeModal (event) {
+      this.$store.commit('modalToggle', { openModal: false })
 
       if (this.$refs.formdata) {
         this.$refs.formdata.resetData()
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
