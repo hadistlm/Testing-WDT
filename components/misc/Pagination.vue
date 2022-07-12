@@ -130,3 +130,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .bg-orange-brand{
+    background-color: #EE6C4D;
+  }
+</style>

@@ -26,12 +26,12 @@
         <li><hr class="border-t mx-2 border-grey-light"></li>
         <li>
           <NuxtLink v-if="editAction.method.type === 'link'" :to="editAction.method.url + editAction.data.id" class="px-4 py-2 block text-blue-600 hover:bg-grey-700">Edit</NuxtLink>
-          <span v-if="editAction.method.type === 'alert'" @click="editClick(editAction.data)" class="px-4 py-2 block text-blue-600 hover:bg-grey-700 cursor-pointer">Edit</span>
+          <span v-if="editAction.method.type === 'alert'" @click="editClick(editAction.method, editAction.data)" class="px-4 py-2 block text-blue-600 hover:bg-grey-700 cursor-pointer">Edit</span>
         </li>
         <li><hr class="border-t mx-2 border-grey-light"></li>
         <li>
           <NuxtLink v-if="detailAction.method.type === 'link'" :to="detailAction.method.url + detailAction.data.id" class="px-4 py-2 block text-blue-600 hover:bg-grey-700">Detail</NuxtLink>
-          <span v-if="detailAction.method.type === 'alert'" @click="detailClick(detailAction.data)" class="px-4 py-2 block text-blue-600 hover:bg-grey-700 cursor-pointer">Detail</span>
+          <span v-if="detailAction.method.type === 'alert'" @click="detailClick(detailAction.method, detailAction.data)" class="px-4 py-2 block text-blue-600 hover:bg-grey-700 cursor-pointer">Detail</span>
         </li>
       </ul>
     </div>
@@ -74,11 +74,11 @@ export default {
     }
   },
   methods: {
-    detailClick (payload) {
-      this.$store.commit('openModalToggle', { type: 'detail', data: payload })
+    detailClick (method, payload) {
+      this.$store.commit('modalToggle', { id: method.id, type: 'detail', data: payload })
     },
-    editClick (payload) {
-      this.$store.commit('openModalToggle', { type: 'edit', data: payload })
+    editClick (method, payload) {
+      this.$store.commit('modalToggle', { id: method.id, type: 'edit', data: payload })
     },
     deleteClick (payload) {
       this.openDelete = !this.openDelete
