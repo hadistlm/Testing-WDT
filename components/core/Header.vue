@@ -1,0 +1,97 @@
+<template>
+  <header>
+    <nav class="bg-white border-gray-200">
+      <div class="flex flex-wrap justify-between mx-auto">
+        <div class="flex items-center px-4 lg:px-6 py-4">
+          <div class="cursor-pointer" @click="toggleSidebar()">
+            <img src="@/assets/icon/core-menu.svg" />
+          </div>
+          <span class="px-4 text-xl font-semibold whitespace-nowrap text-title">Testing WDT</span>
+        </div>
+        <div class="flex md:hidden px-4">
+          <form action="" class="relative mx-auto w-max">
+            <input type="search" class="mt-2.5 cursor-pointer relative z-10 h-10 w-12 rounded-full border input-background pl-12 outline-none focus:border-lime-300 focus:pl-16 focus:pr-4" placeholder="Cari Pegawai" />
+            <img src="@/assets/icon/core-magnifier.svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-lime-300 peer-focus:stroke-lime-500">
+          </form>
+        </div>
+        <div class="hidden md:flex flex-row-reverse lg:order-2 px-4 h-100">
+          <div
+            @click="toggleDropdown()"
+            class="flex flex-col justify-end items-center cursor-pointer w-12 pb-2">
+            <img class="border-2 rounded-full menu-selected h-10 w-10" src="@/assets/icon/core-user.png">
+            <!-- Dropdown menu -->
+            <div
+              :class="{
+                'hidden': !dropdownStatus
+              }"
+              class="absolute top-12 right-3 bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4">
+              <div class="px-4 py-3">
+                <span class="block text-sm">{{ this.$cookies.get('auth._user').displayname }}</span>
+                <span class="block text-sm font-medium text-gray-900 truncate">{{ this.$cookies.get('auth._user').email }}</span>
+              </div>
+              <ul class="py-1" aria-labelledby="dropdown">
+                <li>
+                  <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="hidden md:flex px-6">
+            <form action="" class="relative mx-auto w-max">
+              <input type="search" class="w-full mt-2.5 cursor-pointer relative z-10 h-10 w-12 rounded-lg border input-background pl-12 outline-none focus:border-lime-300 focus:pl-16 focus:pr-4" placeholder="Cari Pegawai" />
+              <img src="@/assets/icon/core-magnifier.svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-lime-300 peer-focus:stroke-lime-500">
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="md:hidden grid grid-cols-5 gap-3 mt-3 shadow-lg">
+        <a class="flex items-center justify-center" href="#">
+          <img src="@/assets/icon/core-menu.svg" class="pb-4">
+        </a>
+        <a class="flex items-center justify-center" href="#">
+          <img src="@/assets/icon/core-menu.svg" class="pb-4">
+        </a>
+        <a class="flex items-center justify-center" href="#">
+          <img src="@/assets/icon/core-menu.svg" class="pb-4">
+        </a>
+        <a class="flex items-center justify-center" href="#">
+          <img src="@/assets/icon/core-menu.svg" class="pb-4">
+        </a>
+        <a class="flex flex-col justify-end items-center" href="#">
+          <img src="@/assets/icon/core-user.png" class="pb-2 h-10 w-9">
+          <div class="w-10/12 border-t-4 menu-selected rounded"></div>
+        </a>
+      </div>
+    </nav>
+  </header>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      dropdownStatus: false
+    }
+  },
+  methods: {
+    toggleDropdown () {
+      this.dropdownStatus = !this.dropdownStatus;
+    },
+    toggleSidebar () {
+      this.$store.commit('sidebarToggle');
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .text-title{
+    color: #3D5A80;
+  }
+  .menu-selected{
+    border-color: #EE6C4D;
+  }
+  .input-background{
+    background-color: rgb(156, 163, 175, 0.2);
+  }
+</style>

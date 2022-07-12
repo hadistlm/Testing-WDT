@@ -11,7 +11,7 @@
           : 'transition-opacity duration-300 opacity-0'
       "
     >
-      <div 
+      <div
         :class="{
           'lg:w-1/4': size && size === 'sm',
           'lg:w-1/2': !size || size === 'md',
@@ -20,8 +20,8 @@
         }"
         class="
           w-full
-          bg-white 
-          flex 
+          bg-white
+          flex
           rounded-lg
           relative
           mt-20
@@ -113,21 +113,21 @@
 <script>
 export default {
   props: {
-    size:{
+    size: {
       type: String,
       default: 'md'
     },
-    hideClose:{
+    hideClose: {
       type: Boolean,
       default: false
     },
     modalState: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
-    openModal() {
+    openModal () {
       if (this.modalState.id !== this.$store.state.modalId) return false;
       return this.$store.state.openModal
     },
@@ -144,12 +144,12 @@ export default {
 
       this.$emit('onchanged', loaded)
 
-      this.$store.commit('closeOpenModal')
+      this.$store.commit('modalToggle', {openModal: false})
 
       modalBody.resetData()
     },
     closeModal(event) {
-      this.$store.commit('closeOpenModal')
+      this.$store.commit('modalToggle', {openModal: false})
 
       if (this.$refs.formdata) {
         this.$refs.formdata.resetData()

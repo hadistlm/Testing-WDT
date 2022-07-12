@@ -1,6 +1,7 @@
 export const strict = false
 
 export const state = () => ({
+  sidebarStatus: false,
   openModal: false,
   modalId: null,
   modalDataRef: null,
@@ -25,10 +26,10 @@ export const getters = {
 }
 
 export const mutations = {
-  closeOpenModal (state, payload) {
-    state.openModal = false
+  sidebarToggle (state, payload) {
+    state.sidebarStatus = !state.sidebarStatus
   },
-  openModalToggle (state, payload) {
+  modalToggle (state, payload) {
     state.openModal = !state.openModal
     state.modalId =
       payload && Object.prototype.hasOwnProperty.call(payload, 'id')
