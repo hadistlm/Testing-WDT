@@ -10,7 +10,7 @@
         </div>
         <div class="flex md:hidden px-4">
           <form action="" class="relative mx-auto w-max">
-            <input type="search" class="mt-2.5 cursor-pointer relative z-10 h-10 w-12 rounded-full border input-background pl-12 outline-none focus:border-lime-300 focus:pl-16 focus:pr-4" placeholder="Cari Pegawai" />
+            <input type="search" class="mt-2.5 cursor-pointer relative z-10 h-10 w-12 rounded-full border input-background pl-12 outline-none focus:border-lime-300 focus:pl-16 focus:pr-4" placeholder="Cari Data" />
             <img src="@/assets/icon/core-magnifier.svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-lime-300 peer-focus:stroke-lime-500">
           </form>
         </div>
@@ -37,7 +37,7 @@
           </div>
           <div class="hidden md:flex px-6">
             <form action="" class="relative mx-auto w-max">
-              <input type="search" class="w-full mt-2.5 cursor-pointer relative z-10 h-10 w-12 rounded-lg border input-background pl-12 outline-none focus:border-lime-300 focus:pl-16 focus:pr-4" placeholder="Cari Pegawai" />
+              <input type="search" class="w-full mt-2.5 cursor-pointer relative z-10 h-10 w-12 rounded-lg border input-background pl-12 outline-none focus:border-lime-300 focus:pl-16 focus:pr-4" placeholder="Cari Data" />
               <img src="@/assets/icon/core-magnifier.svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-lime-300 peer-focus:stroke-lime-500">
             </form>
           </div>
