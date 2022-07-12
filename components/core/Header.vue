@@ -49,13 +49,44 @@
         }"
         class="md:hidden grid grid-cols-3 gap-3 mt-3 shadow-lg"
       >
-        <a class="flex flex-col items-center justify-end pb-2" href="#">
-          <img src="@/assets/icon/core-menu.svg" class="pb-4">
-        </a>
-        <a class="flex flex-col items-center justify-end" href="#">
-          <img src="@/assets/icon/core-menu.svg" class="pb-4">
-          <div class="w-10/12 border-t-4 menu-selected rounded"></div>
-        </a>
+        <NuxtLink
+          to="/dashboard"
+          class="flex flex-col items-center justify-end"
+        >
+          <svg
+            :class="{
+              'mb-2 text-gray-400' : currentPath !== 'dashboard',
+              'basic-color' : currentPath === 'dashboard'
+            }"
+            class="h-10 w-10"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path d="M6 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8ZM6 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-1Z" class="fill-current text-cyan-400 dark:fill-slate-600"></path>
+            <path d="M13 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2V8Z" class="fill-current text-cyan-200 group-hover:text-cyan-300"></path>
+            <path d="M13 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-1Z" class="fill-current group-hover:text-sky-300"></path>
+          </svg>
+          <div v-show="currentPath === 'dashboard'" class="w-10/12 mt-2 border-t-4 menu-selected rounded"></div>
+        </NuxtLink>
+        <NuxtLink
+          to="/admin/posts"
+          class="flex flex-col items-center justify-end"
+        >
+          <svg
+            :class="{
+              'mb-2 text-gray-400' : currentPath !== 'posts',
+              'basic-color' : currentPath === 'posts'
+            }"
+            class="h-10 w-10"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path class="fill-current" fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd" />
+            <path class="fill-current text-gray-400" d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
+          </svg>
+          <div v-show="currentPath === 'posts'" class="w-10/12 mt-2 border-t-4 menu-selected rounded"></div>
+        </NuxtLink>
         <div @click="toggleDropdown()" class="flex flex-col justify-end items-center pb-2">
           <img class="border-2 rounded-full menu-selected h-10 w-10" src="@/assets/icon/core-user.png">
           <div
@@ -87,6 +118,9 @@ export default {
     }
   },
   computed: {
+    currentPath () {
+      return this.$route.path.split('/').pop()
+    },
     user () {
       return this.$cookies.get('auth._user')
     },
@@ -125,6 +159,9 @@ export default {
   }
   .menu-selected{
     border-color: #EE6C4D;
+  }
+  .basic-color {
+    color: #EE6C4D;
   }
   .input-background{
     background-color: rgb(156, 163, 175, 0.2);

@@ -4,24 +4,55 @@
       <div class="flex h-screen flex-col justify-between pb-6">
         <div>
           <ul class="space-y-1 tracking-wide">
-            <li class="min-w-max">
-              <a href="#" aria-label="dashboard" class="relative flex items-center space-x-4 bg-gradient-to-r from-green-400 to-blue-500 px-4 py-3 text-white">
+            <li
+              :class="{
+                'hover:bg-gray-200': currentPath === 'dashboard'
+              }"
+              class="min-w-max">
+              <NuxtLink
+                to="/dashboard"
+                aria-label="dashboard"
+                :class="{
+                  'bg-gradient-to-r from-green-400 to-blue-500 text-white' : currentPath === 'dashboard',
+                  'basic-color' : currentPath !== 'dashboard'
+                }"
+                class="relative flex items-center space-x-4 px-4 py-3"
+              >
                 <svg class="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
                   <path d="M6 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8ZM6 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-1Z" class="fill-current text-cyan-400 dark:fill-slate-600"></path>
                   <path d="M13 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2V8Z" class="fill-current text-cyan-200 group-hover:text-cyan-300"></path>
                   <path d="M13 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-1Z" class="fill-current group-hover:text-sky-300"></path>
                 </svg>
                 <span class="-mr-1 font-medium">Dashboard</span>
-              </a>
+              </NuxtLink>
             </li>
-            <li class="min-w-max hover:bg-gray-200">
-              <a href="#" class="bg group flex items-center space-x-4 rounded-full px-4 py-3 text-gray-600">
+            <li
+              :class="{
+                'hover:bg-gray-200': currentPath === 'posts'
+              }"
+              class="min-w-max">
+              <NuxtLink
+                to="/admin/posts"
+                :class="{
+                  'bg-gradient-to-r from-green-400 to-blue-500' : currentPath === 'posts'
+                }"
+                class="bg group flex items-center space-x-4 px-4 py-3"
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path class="fill-current text-gray-300 group-hover:text-cyan-300" fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd" />
-                  <path class="fill-current text-gray-600 group-hover:text-cyan-600" d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
+                  <path
+                    :class="{
+                      'text-white' : currentPath === 'posts',
+                      'basic-color' : currentPath !== 'posts'
+                    }"
+                    class="fill-current group-hover:text-cyan-300"
+                    fill-rule="evenodd"
+                    d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"
+                    clip-rule="evenodd"
+                  />
+                  <path class="fill-current text-gray-400 group-hover:text-cyan-600" d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
                 </svg>
-                <span class="group-hover:text-gray-700">Article List</span>
-              </a>
+                <span class="group-hover:text-gray-700">Post List</span>
+              </NuxtLink>
             </li>
           </ul>
         </div>
@@ -38,4 +69,18 @@
   </nav>
 </template>
 
-<style scoped></style>
+<script>
+export default {
+  computed: {
+    currentPath () {
+      return this.$route.path.split('/').pop()
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .basic-color {
+    color: #EE6C4D;
+  }
+</style>
