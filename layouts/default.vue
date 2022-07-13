@@ -16,7 +16,7 @@
           <CoreSidebar />
         </div>
         <main class="flex flex-col w-full bg-white overflow-x-hidden overflow-y-auto mb-14 major-background">
-          <div class="flex w-full mx-auto px-6 py-8">
+          <div class="flex-1 w-full mx-auto px-6 py-8">
             <Nuxt />
           </div>
         </main>
