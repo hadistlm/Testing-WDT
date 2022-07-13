@@ -123,6 +123,8 @@ export default {
             this.$auth.strategy.token.set(payload.token)
             // save to local storage
             this.$cookies.set('auth', JSON.stringify(payload))
+            // reload current page
+            window.location.reload()
           })
       } catch (err) {
         if (err.response) {

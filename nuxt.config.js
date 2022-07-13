@@ -56,14 +56,15 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://vast-citadel-16840.herokuapp.com'
   },
 
   auth: {
     localStorage: false,
     redirect: {
-      login: '/',
+      login: '/login',
       logout: '/',
+      callback: '/login',
       home: '/dashboard',
     },
     strategies: {
@@ -109,6 +110,7 @@ export default {
 
   // Middleware
   router: {
+    base: '/Testing-WDT/',
     middleware: ['auth'],
   }
 }
