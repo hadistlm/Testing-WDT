@@ -134,9 +134,8 @@ export default {
       const query = this.$route.query
       const resultSet = await this.$axios.get('/api/v1/post', {
         params: {
-          page: !query.page ? '' : query.page,
-          per_page: Object.prototype.hasOwnProperty.call(payload, 'perpage') && payload.perpage ? payload.perpage : this.dataPage.perpage,
-          search: Object.prototype.hasOwnProperty.call(payload, 'search') && payload.search ? payload.search : ''
+          page: query.page ? query.page : 1,
+          per_page: Object.prototype.hasOwnProperty.call(payload, 'perpage') && payload.perpage ? payload.perpage : this.dataPage.perpage
         }
       })
 

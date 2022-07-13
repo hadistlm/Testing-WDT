@@ -124,7 +124,7 @@ export default {
             // save to local storage
             this.$cookies.set('auth', JSON.stringify(payload))
             // reload current page
-            window.location.reload()
+            this.$router.push('dashboard')
           })
       } catch (err) {
         if (err.response) {
