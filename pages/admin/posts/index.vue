@@ -32,6 +32,7 @@ import FormPost from '@/components/form/FormPost.vue'
 import PostDetail from '@/components/admin/PostDetail.vue'
 
 export default {
+  name: 'PostPage',
   middleware: 'isAuthenticated',
   data () {
     return {

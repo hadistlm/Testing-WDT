@@ -8,15 +8,15 @@
 import pathToTitle from '@/helpers/pathToTitle.js'
 
 export default {
-  head() {
+  head () {
     return {
-      title: this.pathFormatted,
+      title: this.pathFormatted
     }
   },
   computed: {
-    pathFormatted() {
+    pathFormatted () {
       return pathToTitle(this.$route.path.substring(1))
-    },
-  },
+    }
+  }
 }
 </script>
